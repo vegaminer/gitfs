@@ -26,6 +26,14 @@ In order to mount your repository to the desired directory, use:
 gitfs http://your.com/repository.git /mount/directory
 ```
 
+You my also put it into /etc/fstab to be able to use mount/umount commands.
+
+```
+gitfs#https://github.com/<user_name>/<repo_name>.git /mnt/<repo_name> fuse log=/var/log/gitfs.<repo_name>.log,debug=false,foreground=false,log_level=warning,max_size=0,commiter_name=<some_user_name_even_fake_one>,commiter_email=<your_email>,user=www-data,group=www-data,username=<github_user_name>,password=<github_password>,allow_other=true 0 0
+```
+
+Now it'll be mounted during system start and you may use mount /mnt/<repo_name> or umount /mnt/<repo_name>. Note that www-data is a user on your server who will have read/write access to /mnt/<repo_name>/current directory
+
 ### Directory structure
 
 `current/` – contains a snapshot of the commit that the branch’s HEAD is pointing to. Any changes made here will be automatically committed and pushed to the repository you have mounted.
